@@ -1,5 +1,3 @@
-#!/bin/bash
-# Program to find if a given string or number is palindrome or not  
 echo "Enter the string to be checked: "
 read str
 length=${#str}
@@ -13,3 +11,4 @@ then
 else 
     echo "The string $str is not a palindrome"
 fi
+# cd "/mnt/c/Users/hisha/CodeFiles/OS Lab/Lab 2"
