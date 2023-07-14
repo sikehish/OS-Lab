@@ -1,5 +1,5 @@
 /*********************************************************************************************************
- * Child program to print fibonacci numbers using shm_open and mmap system calls.
+ * Parent program to print prime numbers in given range using shm_open and mmap system calls.
  * Prototype of shm_open: int shm_open(const char *name, int oflag, mode_t mode);
  * shm_open() creates and opens a new, or opens an existing, POSIX shared memory object.
  * Protoype of mmap: void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
@@ -25,24 +25,50 @@
 
 int main(int argc, char *argv[])
 {
-    int k = 2, n1, n2, n3;
+    int i, m, n;
+    int flag = 0;
+    const int SIZE = 4096;
+    pid_t pid;
+    int shm_fd;
     void *shmptr;
-    int shm_fd = shm_open("OS", O_CREAT | O_RDWR, 0666);
-    ftruncate(shm_fd, 4096);
-    shmptr = mmap(0, 4096, PROT_WRITE, MAP_SHARED, shm_fd, 0);
 
-    printf("\nChild Printing:\n");
-    int i = atoi(argv[1]);
-    n3 = n1 = 0;
-    n2 = 1;
-    for (k = 1; k <= i; k++)
+    if (argc > 2)
     {
-        n3 = n1 + n2;
-        sprintf(shmptr, "%d ", n1);
-        printf("%d ", n1);
-        shmptr += strlen(shmptr);
-        n1 = n2;
-        n2 = n3;
+        sscanf(argv[1], "%d", &m);
+        sscanf(argv[2], "%d", &n);
+        if (m < 1 || n < 1)
+        {
+            printf("\nWrong input given!!\n");
+            return 0;
+        }
+        else if (m > n)
+        {
+            int temp = m;
+            m = n;
+            n = temp;
+        }
+    }
+    else
+    {
+        printf("\nNo or wrong number of parameters passed in the command line!!\n");
+        exit(0);
+    }
+
+    pid = fork();
+    if (pid == 0)
+    {
+        // This is the child part
+        execlp("./prime", "prime", argv[1], argv[2], NULL);
+    }
+    else if (pid > 0)
+    {
+        wait(NULL);
+        printf("\n[PARENT] Child process completed\n");
+        shm_fd = shm_open("OS", O_RDONLY, 0666);
+        shmptr = mmap(0, SIZE, PROT_READ, MAP_SHARED, shm_fd, 0);
+        printf("\nParent printing:\n");
+        printf("%s\n", (char *)shmptr);
+        shm_unlink("OS");
     }
 
     return 0;

@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
         wait(NULL);
         printf("\n[PARENT] Child process completed\n");
         shm_fd = shm_open("OS", O_RDONLY, 0666);
-        shmptr = mmap(0, SIZE, PROT_READ, MAP_SHARED, shm_fd, 0);
+        shmptr = mmap(0, 4096, PROT_READ, MAP_SHARED, shm_fd, 0);
         printf("\nParent printing:\n");
         printf("%s\n", (char *)shmptr);
         shm_unlink("OS");
