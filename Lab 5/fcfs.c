@@ -6,7 +6,7 @@ struct process
 void main()
 {
     struct process P[10], temp;
-    int n, i, j, ct,temp1=0;
+    int n, i, j, ct, temp1 = 0;
     float total_tat = 0, total_wt = 0;
     printf("Enter the number of Process: ");
     scanf("%d", &n);
@@ -29,7 +29,8 @@ void main()
             }
     P[0].CT = P[0].AT + P[0].BT;
     ct = P[0].CT;
-    if(P[0].AT>0) printf("|Idle till %d", P[0].AT);
+    if (P[0].AT > 0)
+        printf("|Idle till %d", P[0].AT);
     printf("| P%d(%d) %d", P[0].ID, P[0].BT, ct);
     for (i = 1; i < n; i++)
     {
@@ -41,7 +42,7 @@ void main()
         else
             ct += P[i].BT;
         P[i].CT = ct;
-        temp1=i;
+        temp1 = i;
         printf("| P%d(%d) %d", P[i].ID, P[i].BT, ct);
     }
     for (i = 0; i < n; i++)

@@ -31,7 +31,7 @@ int main()
 
     printf("Going to 5th last character in the file: \n");
     lseek(fd, -5, SEEK_END);
-    n = read(fd, buffer, 7);
+    n = read(fd, buffer, 5);
     write(1, buffer, n);
     printf("\n");
 

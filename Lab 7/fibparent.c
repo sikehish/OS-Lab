@@ -24,7 +24,7 @@
 
 int main(int argc, char *argv[])
 {
-    int i, k, n1, n2, n3;
+    int i;
     pid_t pid;
     const int SIZE = 4096;
     void *shmptr;
