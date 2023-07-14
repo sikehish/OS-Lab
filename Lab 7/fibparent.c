@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
     }
     else if (pid > 0)
     {
-        wait(NULL);
+        wait(NULL); // will wait till child has finished executing
         printf("\n[PARENT] Child completed\n");
         printf("\nParent printing:\n");
         printf("%s\n", (char *)shmptr);

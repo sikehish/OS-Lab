@@ -34,12 +34,12 @@ int main(int argc, char *argv[])
     n2 = 1;
     for (k = 1; k <= i; k++)
     {
-        sprintf(shmptr, "%d ", n3);
-        printf("%d ", n3);
+        n3 = n1 + n2;
+        sprintf(shmptr, "%d ", n1);
+        printf("%d ", n1);
         shmptr += strlen(shmptr);
         n1 = n2;
         n2 = n3;
-        n3 = n1 + n2;
     }
 
     shmctl(shmid, IPC_RMID, NULL);
