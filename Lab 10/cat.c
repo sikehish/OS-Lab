@@ -7,26 +7,37 @@
  * Prototype: int fgetc(FILE *stream)
  * EOF denotes End Of File.
  * The file name is to be passed as command line argument.
-*************************************************************************************************************************/ 
+ *************************************************************************************************************************/
 
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     FILE *fp;
     char ch;
-    if (argc < 2) {
+    char temp[50];
+
+    // Optional
+    if (argc < 2)
+    {
         printf("\nThe file name is not passed\n");
         exit(1);
     }
+
     fp = fopen(argv[1], "r");
-    if(fp == NULL) {
+
+    // Optional
+    if (fp == NULL)
+    {
         printf("\nThe file does not exist.\n");
         exit(1);
     }
-    while((ch = fgetc(fp)) != EOF) {
-        printf("%c", ch);
+
+    while (!feof(fp))
+    {
+        fgets(temp, 50, fp);
+        printf("%s", temp);
     }
     fclose(fp);
     return 0;
-}
