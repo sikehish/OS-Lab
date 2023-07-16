@@ -1,14 +1,18 @@
-echo "Enter the string to be checked: "
-read str
-length=${#str}
-for ((i=length-1; i>=0; i--))
+#!/bin/bash
+
+echo "Enter a number:"
+read num
+
+length=${#num};
+
+for((i=length-1; i>=0; i--))
 do
-    reverse=$reverse${str:$i:1}
+    reverse=$reverse${num:$i:1}
 done
-if [[ $reverse == "$str" ]]
-then
-    echo "The string $str is a palindrome"
+
+if [ $reverse == $num ]  #or [[ "$reverse" == "$num" ]] 
+then 
+    echo "The number $num is a palindrome"
 else 
-    echo "The string $str is not a palindrome"
+    echo "The number $num is not a palindrome"
 fi
-# cd "/mnt/c/Users/hisha/CodeFiles/OS Lab/Lab 2"
