@@ -11,49 +11,42 @@
  * Protoype of shm_unlink: int shm_unlink(const char *name);
  * The shm_unlink() function removes the object previously created by shm_open().
 *********************************************************************************************************/
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
 #include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/shm.h>
 #include <sys/mman.h>
+#include <sys/wait.h>
+#include <sys/stat.h>
+#include <sys/shm.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
 
 int main(int argc, char *argv[])
 {
-    int i, m, n;
-    int flag = 0;
-    void *shmptr;
-    int shm_fd = shm_open("OS", O_CREAT | O_RDWR, 0666);
-    ftruncate(shm_fd, 4096);
-    shmptr = mmap(0, 4096, PROT_WRITE, MAP_SHARED, shm_fd, 0);
+    int a = atoi(argv[1]);
+    int b = atoi(argv[2]);
 
+    int shmfd = shm_open("OS", O_CREAT | O_RDWR, 0666);
+    ftruncate(shmfd, 4096);
+    void *shmptr = mmap(0, 4096, PROT_WRITE, MAP_SHARED, shmfd, 0);
     printf("\nChild Printing:\n");
-    m = atoi(argv[1]);
-    n = atoi(argv[2]);
-    for (i = m; i <= n; i++)
+    for (int i = a; i <= b; i++)
     {
-        for (int j = 2; j <= i / 2; j++)
+        int flag = 1;
+        for (int j = i / 2; j >= 2; j--)
         {
             if (i % j == 0)
             {
-                flag = 1;
+                flag = 0;
+                break;
             }
         }
-
-        if (flag == 0)
+        if (flag)
         {
-            sprintf(shmptr, "%d ", i);
             printf("%d ", i);
-            shmptr += strlen(shmptr);
+            sprintf(shmptr, "%d ", i);
+            shmptr += (strlen(shmptr));
         }
-
-        flag = 0;
     }
-
-    return 0;
 }
