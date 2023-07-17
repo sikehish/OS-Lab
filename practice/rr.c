@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct process
+{
+    int Id, AT, BT, CT, WT, TAT, flag;
+} pro;
+
+pro p[15];
+
+void swap(pro *a, pro *b)
+{
+    pro temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void sort(int n)
+{
+    for (int i = 0; i < n - 1; i++)
+        for (int j = 0; j < n - i - 1; j++)
+        {
+            if (p[j].AT > p[j + 1].AT)
+                swap(&p[j], &p[j + 1]);
+        }
+}
+
+void main()
+{
+    int n, completed = 0, curTime = 0, curIndex = 0, total_TAT = 0, total_WT = 0;
+    float avg_TAT = 0, avg_WT = 0;
+    int *waitQueue, front = 0, rear = 0, quantum, tempBT[15];
+    waitQueue = (int *)malloc(n * sizeof(int));
+    waitQueue[0] = 0;
+    printf("\nEnter the number of processes:\n");
+    scanf("%d", &n);
+    printf("\nEnter the arrival time and burst time of the process:\n");
+    printf("AT BT\n");
+    for (int i = 0; i < n; i++)
+    {
+        p[i].Id = (i + 1);
+        scanf("%d%d", &p[i].AT, &p[i].BT);
+        tempBT[i] = p[i].BT;
+        p[i].flag = 0;
+    }
+    printf("\nEnter the time quantum:\n");
+    scanf("%d", &quantum);
+    sort(n);
+
+    curTime = p[0].AT;
+    p[0].flag = 1;
+
+    while (completed != n)
+    {
+        curIndex = waitQueue[front];
+        front = (front + 1) % n;
+        if (p[curIndex].BT > quantum)
+        {
+            p[curIndex].BT -= quantum;
+            curTime += quantum;
+            printf("| P%d(%d) %d", p[curIndex].Id, quantum, curTime);
+        }
+        else
+        {
+            curTime += p[curIndex].BT;
+            printf("| P%d(%d) %d", p[curIndex].Id, p[curIndex].BT, curTime);
+            p[curIndex].BT = 0;
+            p[curIndex].CT = curTime;
+            p[curIndex].TAT = p[curIndex].CT - p[curIndex].AT;
+            total_TAT += p[curIndex].TAT;
+            p[curIndex].WT = p[curIndex].TAT - tempBT[p[curIndex].Id - 1];
+            total_WT += p[curIndex].WT;
+            completed++;
+        }
+
+        for (int i = 0; i < n && p[i].AT <= curTime; i++)
+        {
+            if (p[i].flag == 1 || p[i].BT == 0)
+                continue;
+            p[i].flag = 1;
+            rear = (rear + 1) % n;
+            waitQueue[rear] = i;
+        }
+
+        if (p[curIndex].BT > 0)
+        {
+            rear = (rear + 1) % n;
+            waitQueue[rear] = curIndex;
+        }
+    }
+    avg_TAT = (float)total_TAT / n;
+    avg_WT = (float)total_WT / n;
+
+    // Printing the table of processes with details
+    printf("\nPID\tAT\tBT\tCT\tTAT\tWT\n");
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d\t%d\t%d\t%d\t%d\t%d\n", p[i].Id, p[i].AT, tempBT[i], p[i].CT, p[i].TAT, p[i].WT);
+    }
+
+    printf("\nAverage TAT = %.2f\nAverage WT = %.2f\n", avg_TAT, avg_WT);
+}

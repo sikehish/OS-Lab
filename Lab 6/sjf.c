@@ -68,8 +68,8 @@ void main()
             if (idleTime > 0)
             {
                 printf("| Idle till %d", idleTime);
+                idleTime = 0;
             }
-            idleTime = 0;
             curTime += p[minIndex].BT;
             p[minIndex].CT = curTime;
             p[minIndex].TAT = p[minIndex].CT - p[minIndex].AT;

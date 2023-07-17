@@ -6,7 +6,7 @@
 void main()
 {
 
-    int fd = open("sample.txt", O_RDWR);
+    int fd = open("sample.txt", O_RDONLY);
     int n;
     char buffer[50];
 

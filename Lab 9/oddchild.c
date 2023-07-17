@@ -31,16 +31,13 @@ int main(int argc, char *argv[])
     printf("\nChild Printing:\n");
     n = atoi(argv[1]);
 
-    while (n != 0)
+    int j = 1;
+    for (int i = 1; i <= n; i++)
     {
-        if (i % 2 != 0)
-        {
-            sprintf(shmptr, "%d ", i);
-            printf("%d ", i);
-            shmptr += strlen(shmptr);
-            n--;
-        }
-        i++;
+        sprintf(shmptr, "%d ", j);
+        printf("%d ", j);
+        shmptr += strlen(shmptr);
+        j += 2;
     }
 
     shmctl(shmid, IPC_RMID, NULL);
