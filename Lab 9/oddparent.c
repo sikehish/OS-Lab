@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 
     if (argc > 1)
     {
-        sscanf(argv[1], "%d", &i); i=atoi(argv[1)
+        sscanf(argv[1], "%d", &i); // or i=atoi(argv[1)
         if (i < 1)
         {
             printf("\nWrong input is passed:\n");
