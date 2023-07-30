@@ -7,7 +7,7 @@ length=${#num};
 
 for((i=length-1; i>=0; i--))
 do
-    reverse=$reverse${num:$i:1}
+    reverse=$reverse${num:i:1}
 done
 
 if [ $reverse == $num ]  #or [[ "$reverse" == "$num" ]] 
