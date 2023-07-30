@@ -34,8 +34,8 @@ int main(int argc, char *argv[])
 
     if (argc > 2)
     {
-        sscanf(argv[1], "%d", &m);
-        sscanf(argv[2], "%d", &n);
+        sscanf(argv[1], "%d", &m); // or atoi(argv[1])
+        sscanf(argv[2], "%d", &n); // or atoi(argv[2])
         if (m < 1 || n < 1)
         {
             printf("\nWrong input given!!\n");
