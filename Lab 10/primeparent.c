@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     if (pid == 0)
     {
         // This is the child part
-        execlp("./prime", "prime", argv[1], argv[2], NULL);
+        execlp("./prime", "prime", m, n, NULL);
     }
     else if (pid > 0)
     {
