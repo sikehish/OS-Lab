@@ -23,7 +23,7 @@ void main(int argc, char *argv[])
     }
     else
     {
-        printf("Please enter a cpmmand line argument!\n");
+        printf("Please enter a command line argument!\n");
         return;
     }
 
