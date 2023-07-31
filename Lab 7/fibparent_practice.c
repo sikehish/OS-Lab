@@ -36,7 +36,7 @@ void main(int argc, char *argv[])
     {
         wait(NULL);
         printf("\n[PARENT]Child process completed\n");
-        printf("Prent printing...\n");
+        printf("Parent printing...\n");
         printf("%s\n", (char *)shmptr);
         shmdt(shmptr);
     }
