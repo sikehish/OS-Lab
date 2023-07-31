@@ -24,7 +24,7 @@
 # Alternative approach
 echo "Enter the number of elements in the array: "
 read n
-echo "Enter the elemnts of the array: "
+echo "Enter the elements of the array: "
 for((i=0;i<n;i++))
 do
     read element
