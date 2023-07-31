@@ -52,7 +52,7 @@ void main()
             // As the process is not preempted, the process executes till it is completed, i.e., for it's full BT.
             if (idleTime > 0)
             {
-                printf("| Idle till %d", idleTime);
+                printf("| Idle till %d", idleTime); // instead of idleTime, you can use curTime, as its idle for the duration "idleTime" but its idle till "curTime"
             }
             idleTime = 0;
             curTime += p[minIndex].BT;
