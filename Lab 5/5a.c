@@ -9,7 +9,7 @@ int main()
 {
     int fd, n;
     char buffer[BUFFER_SIZE];
-    fd = open("sample.txt", O_RDWR);
+    fd = open("sample.txt", O_RDONLY); // O_RDONLY or O_RDWR(if O_RDONLY doesnt work by any chance, which doesn't happen usually)
 
     printf("File descriptor is %d\n", fd);
     if (fd == -1)
