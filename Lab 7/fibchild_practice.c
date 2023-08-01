@@ -20,6 +20,8 @@ void main(int argc, char *argv[])
         printf("%d ", n1);
         sprintf(shmptr, "%d ", n1);
         shmptr += (strlen(shmptr));
+        n1 = n2;
+        n2 = n3;
     }
     shmctl(shmid, IPC_RMID, NULL);
 }

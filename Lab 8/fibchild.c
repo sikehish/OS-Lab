@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
   int i = atoi(argv[1]);
   n3 = n1 = 0;
   n2 = 1;
-  for (k = 1; k <= i; k++)
+  for (k = 0; k < i; k++)
   {
     n3 = n1 + n2;
     sprintf(shmptr, "%d ", n1);
